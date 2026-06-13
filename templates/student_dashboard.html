@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <section class="dashboard">
+    <h1>Welcome, {{ student.full_name }}</h1>
+    <p class="muted">Username: {{ student.username }} · Student ID: {{ student.student_id }}</p>
+
+    <div class="summary-grid">
+      <div class="card">
+        <h2>Sessions</h2>
+        <p>{{ total_sessions }}</p>
+      </div>
+      <div class="card">
+        <h2>Attendance Rate</h2>
+        <p>{{ attendance_percent }}%</p>
+      </div>
+      <div class="card">
+        <h2>Present</h2>
+        <p>{{ totals.present or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Absent</h2>
+        <p>{{ totals.absent or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Late</h2>
+        <p>{{ totals.late or 0 }}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Your Attendance Records</h2>
+      {% if records %}
+        <table>
+          <thead>
+            <tr>
+              <th>Session</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in records %}
+              <tr>
+                <td>{{ record.session_name }}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.status.capitalize() }}</td>
+                <td>{{ record.comments or '—' }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No attendance records yet. Please check back after your teacher submits attendance.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

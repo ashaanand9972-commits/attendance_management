@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <section class="panel">
+    <h1>Session Summary</h1>
+    <div class="card">
+      <p><strong>Session:</strong> {{ session_data.session_name }}</p>
+      <p><strong>Date:</strong> {{ session_data.date }}</p>
+      <p><strong>Teacher ID:</strong> {{ session_data.teacher_id }}</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="card">
+        <h2>Present</h2>
+        <p>{{ totals.present or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Absent</h2>
+        <p>{{ totals.absent or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Late</h2>
+        <p>{{ totals.late or 0 }}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Student Attendance</h2>
+      {% if records %}
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in records %}
+              <tr>
+                <td>{{ record.full_name }}</td>
+                <td>{{ record.student_id }}</td>
+                <td>{{ record.status.capitalize() }}</td>
+                <td>{{ record.comments or '—' }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No attendance records are yet available for this session.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

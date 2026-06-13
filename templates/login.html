@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <section class="login-panel">
+    <h1>College Attendance Login</h1>
+    <form method="post">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="role">Login as</label>
+      <select id="role" name="role" required>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="hint">
+      <strong>Teacher:</strong> username <code>teacher</code>, password <code>teacher123</code>.
+      <br />
+      Students are added by the teacher in the student management page.
+      {% if teacher_count < 10 %}
+        <br />
+        <a href="{{ url_for('register') }}">Create teacher account</a> ({{ remaining_teachers }} slots available)
+      {% else %}
+        <br />
+        <strong>Teacher registration is closed.</strong>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

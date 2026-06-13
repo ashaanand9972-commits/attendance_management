@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <section class="panel">
+    <h1>Attendance Report</h1>
+    {% if sessions %}
+      <table>
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Date</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Late</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session_item in sessions %}
+            <tr>
+              <td>{{ session_item.session_name }}</td>
+              <td>{{ session_item.date }}</td>
+              <td>{{ session_item.present_count or 0 }}</td>
+              <td>{{ session_item.absent_count or 0 }}</td>
+              <td>{{ session_item.late_count or 0 }}</td>
+              <td>{{ session_item.total_count or 0 }}</td>
+              <td><a class="button small" href="{{ url_for('session_summary', session_id=session_item.id) }}">View</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No report data available. Create attendance sessions and mark attendance first.</p>
+    {% endif %}
+  </section>
+{% endblock %}

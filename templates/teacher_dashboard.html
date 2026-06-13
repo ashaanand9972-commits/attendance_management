@@ -1,0 +1,64 @@
+ {% extends 'layout.html' %}
+{% block content %}
+  <section class="dashboard">
+    <h1>Welcome, {{ session.full_name }} (Teacher)</h1>
+    <div class="summary-grid">
+      <div class="card">
+        <h2>Students</h2>
+        <p>{{ student_count }}</p>
+      </div>
+      <div class="card">
+        <h2>Attendance Sessions</h2>
+        <p>{{ session_count }}</p>
+      </div>
+      <div class="card">
+        <h2>Present</h2>
+        <p>{{ summary.present or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Absent</h2>
+        <p>{{ summary.absent or 0 }}</p>
+      </div>
+      <div class="card">
+        <h2>Late</h2>
+        <p>{{ summary.late or 0 }}</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="button" href="{{ url_for('manage_students') }}">Manage Students</a>
+      <a class="button" href="{{ url_for('attendance_session') }}">Create Session</a>
+      <a class="button" href="{{ url_for('attendance_report') }}">View Report</a>
+    </div>
+
+    <div class="card">
+      <h2>Recent Attendance Sessions</h2>
+      {% if recent_sessions %}
+        <table>
+          <thead>
+            <tr>
+              <th>Session</th>
+              <th>Date</th>
+              <th>Students</th>
+              <th>Present</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in recent_sessions %}
+              <tr>
+                <td>{{ item.session_name }}</td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.total_students or 0 }}</td>
+                <td>{{ item.present_count or 0 }}</td>
+                <td><a class="button small" href="{{ url_for('session_summary', session_id=item.id) }}">View</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No attendance sessions yet. Start by creating a session.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

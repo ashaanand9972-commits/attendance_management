@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <section class="panel">
+    <h1>Attendance Sessions</h1>
+    <form class="card form-card" method="post">
+      <h2>Create New Session</h2>
+      <label for="session_name">Session Name</label>
+      <input type="text" id="session_name" name="session_name" required />
+
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" required />
+
+      <button type="submit">Create Session</button>
+    </form>
+
+    <div class="card">
+      <div class="section-heading">
+        <h2>Existing Sessions</h2>
+        <a class="button small" href="{{ url_for('attendance_report') }}">Session Report</a>
+      </div>
+      {% if sessions %}
+        <table>
+          <thead>
+            <tr>
+              <th>Session</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for session_item in sessions %}
+              <tr>
+                <td>{{ session_item.session_name }}</td>
+                <td>{{ session_item.date }}</td>
+                <td>
+                  <a class="button small" href="{{ url_for('mark_attendance', session_id=session_item.id) }}">Mark</a>
+                  <form action="{{ url_for('delete_session', session_id=session_item.id) }}" method="post" class="inline-form" onsubmit="return confirm('Delete this session and all attendance records?');">
+                    <button type="submit" class="button small danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No attendance sessions created yet.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
