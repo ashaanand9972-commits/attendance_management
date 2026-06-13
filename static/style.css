@@ -45,7 +45,7 @@ footer {
 .login-panel,
 .card,
 .form-card {
-  background: #fff;
+  background: #88a1cf;
   border-radius: 16px;
   padding: 1.75rem;
   margin-bottom: 1.5rem;
@@ -74,7 +74,7 @@ input[type="password"],
 input[type="date"],
 select {
   width: 100%;
-  border: 1px solid #dce0ea;
+  border: 1px solid #8b98b8;
   border-radius: 12px;
   padding: 0.9rem 1rem;
   font-size: 1rem;
