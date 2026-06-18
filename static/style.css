@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: #559cee;
+  background: hsl(46, 96%, 48%);
   color: #222;
 }
 
@@ -45,7 +45,7 @@ footer {
 .login-panel,
 .card,
 .form-card {
-  background: #f8e303;
+  background: #0d93cd;
   border-radius: 16px;
   padding: 1.75rem;
   margin-bottom: 1.5rem;
